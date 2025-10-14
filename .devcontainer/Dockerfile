@@ -27,10 +27,12 @@ RUN volare enable --pdk sky130 c6d73a35f524070e85faff4a6a9eef49553ebc2b
 
 # Create conventional /opt/pdk/sky130A symlink to the enabled tree
 RUN set -eux; \
-    TARGET="$(find "$PDK_ROOT/sky130" -type d -path '*/pdk/sky130A' | head -n1)"; \
+    VOLARE_ROOT="$(volare ls --pdk sky130 | head -n1)"; \
+    echo "Volare PDK root: ${VOLARE_ROOT}"; \
+    TARGET="$(find "${VOLARE_ROOT}" -type d -path '*/pdk/sky130A' | head -n1)"; \
     echo "Resolved sky130A path: ${TARGET}"; \
     test -d "${TARGET}"; \
-    ln -s "${TARGET}" "$PDK_ROOT/sky130A"
+    ln -s "${TARGET}" "${PDK_ROOT}/sky130A"
 
 # Helpful env for the tools
 ENV MAGIC_TECHPATH="$PDK_ROOT/sky130A/libs.tech/magic"
