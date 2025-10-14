@@ -14,33 +14,33 @@ RUN apt-get update && apt-get install -y \
     magic ngspice netgen \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# --- Get prebuilt Sky130 via volare (no compile, small disk) ---
-RUN pip install --no-cache-dir volare
+# --- Desktop + tools omitted for brevity above ---
 
-# Pick the latest prebuilt sky130 version at build time and enable it
-# You can pin later by replacing the awk logic with a fixed hash.
-RUN set -eux; \
-    LATEST="$(volare ls-remote --pdk sky130 | awk 'NR==1{print $1}')" ; \
-    echo "Enabling sky130 version: ${LATEST}"; \
-    volare enable --pdk sky130 "${LATEST}"
-
-# Create conventional PDK_ROOT layout & symlink to the enabled sky130A path
+# Put PDK_ROOT BEFORE using volare so it installs under /opt/pdk
 ENV PDK_ROOT=/opt/pdk
+RUN mkdir -p "$PDK_ROOT"
+
+# Install volare and enable a known-good sky130 version (pin for reproducibility)
+RUN pip install --no-cache-dir volare
+# (This hash is exactly what your logs showed as enabled and known-good)
+RUN volare enable --pdk sky130 c6d73a35f524070e85faff4a6a9eef49553ebc2b
+
+# Create conventional /opt/pdk/sky130A symlink to the enabled tree
 RUN set -eux; \
-    mkdir -p "${PDK_ROOT}"; \
-    TARGET="$(find /root/.volare -type d -path '*/sky130/*/pdk/sky130A' | head -n1)"; \
+    TARGET="$(find "$PDK_ROOT/sky130" -type d -path '*/pdk/sky130A' | head -n1)"; \
     echo "Resolved sky130A path: ${TARGET}"; \
     test -d "${TARGET}"; \
-    ln -s "${TARGET}" "${PDK_ROOT}/sky130A"
+    ln -s "${TARGET}" "$PDK_ROOT/sky130A"
 
-# Helpful env for tools
+# Helpful env for the tools
 ENV MAGIC_TECHPATH="$PDK_ROOT/sky130A/libs.tech/magic"
 ENV NETGEN_SETUP="$PDK_ROOT/sky130A/libs.tech/netgen/sky130A_setup.tcl"
 
-# noVNC services
+# noVNC supervisor files (keep your existing ones)
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY start-vnc.sh /usr/local/bin/start-vnc.sh
 RUN chmod +x /usr/local/bin/start-vnc.sh
 
 EXPOSE 6080
 CMD ["/usr/bin/supervisord", "-n"]
+
