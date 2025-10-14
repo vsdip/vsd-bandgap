@@ -24,15 +24,18 @@ RUN set -eux; \
     echo "Enabling sky130 version: ${LATEST}"; \
     volare enable --pdk sky130 "${LATEST}"
 
-# Make conventional PDK_ROOT layout & symlink to the sky130A variant path
+# Create conventional PDK_ROOT layout & symlink to the enabled sky130A path
 ENV PDK_ROOT=/opt/pdk
-RUN mkdir -p "${PDK_ROOT}" && \
-    ln -s "$(volare show --pdk sky130 --path)" "${PDK_ROOT}/sky130A"
+RUN set -eux; \
+    mkdir -p "${PDK_ROOT}"; \
+    TARGET="$(find /root/.volare -type d -path '*/sky130/*/pdk/sky130A' | head -n1)"; \
+    echo "Resolved sky130A path: ${TARGET}"; \
+    test -d "${TARGET}"; \
+    ln -s "${TARGET}" "${PDK_ROOT}/sky130A"
 
 # Helpful env for tools
 ENV MAGIC_TECHPATH="$PDK_ROOT/sky130A/libs.tech/magic"
 ENV NETGEN_SETUP="$PDK_ROOT/sky130A/libs.tech/netgen/sky130A_setup.tcl"
-
 
 # noVNC services
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
