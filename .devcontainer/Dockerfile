@@ -14,20 +14,25 @@ RUN apt-get update && apt-get install -y \
     magic ngspice netgen \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# --- Get prebuilt Sky130A via volare (saves space/time vs building) ---
+# --- Get prebuilt Sky130 via volare (no compile, small disk) ---
 RUN pip install --no-cache-dir volare
 
-# Choose a widely-used Sky130A release; you can change version later with `volare ls-remote`
-# This downloads into /root/.volare and creates the local store.
-RUN volare enable --pdk sky130A latest
+# Pick the latest prebuilt sky130 version at build time and enable it
+# You can pin later by replacing the awk logic with a fixed hash.
+RUN set -eux; \
+    LATEST="$(volare ls-remote --pdk sky130 | awk 'NR==1{print $1}')" ; \
+    echo "Enabling sky130 version: ${LATEST}"; \
+    volare enable --pdk sky130 "${LATEST}"
 
-# Make conventional PDK_ROOT layout & symlink
-RUN mkdir -p ${PDK_ROOT} && \
-    ln -s $(volare show --pdk sky130A --path) ${PDK_ROOT}/sky130A
+# Make conventional PDK_ROOT layout & symlink to the sky130A variant path
+ENV PDK_ROOT=/opt/pdk
+RUN mkdir -p "${PDK_ROOT}" && \
+    ln -s "$(volare show --pdk sky130 --path)" "${PDK_ROOT}/sky130A"
 
 # Helpful env for tools
 ENV MAGIC_TECHPATH="$PDK_ROOT/sky130A/libs.tech/magic"
 ENV NETGEN_SETUP="$PDK_ROOT/sky130A/libs.tech/netgen/sky130A_setup.tcl"
+
 
 # noVNC services
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
