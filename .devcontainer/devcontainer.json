@@ -1,0 +1,24 @@
+{
+  "name": "VLSI GUI Codespace (Sky130 build)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [6080],
+  "portsAttributes": {
+    "6080": { "label": "noVNC Desktop", "onAutoForward": "openBrowser" }
+  },
+  "remoteUser": "root",
+  "containerEnv": {
+    "PDK_ROOT": "/opt/pdk",
+    "DISPLAY": ":1"
+  },
+  "postCreateCommand": "chmod +x /usr/local/bin/start-vnc.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.makefile-tools",
+        "ms-vscode.cpptools"
+      ]
+    }
+  }
+}
