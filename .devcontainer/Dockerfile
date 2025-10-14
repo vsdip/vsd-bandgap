@@ -19,11 +19,11 @@ RUN pip install --no-cache-dir volare
 
 # Choose a widely-used Sky130A release; you can change version later with `volare ls-remote`
 # This downloads into /root/.volare and creates the local store.
-RUN volare enable --pdk sky130a --version latest
+RUN volare enable --pdk sky130A latest
 
 # Make conventional PDK_ROOT layout & symlink
 RUN mkdir -p ${PDK_ROOT} && \
-    ln -s $(volare show --pdk sky130a --path) ${PDK_ROOT}/sky130A
+    ln -s $(volare show --pdk sky130A --path) ${PDK_ROOT}/sky130A
 
 # Helpful env for tools
 ENV MAGIC_TECHPATH="$PDK_ROOT/sky130A/libs.tech/magic"
