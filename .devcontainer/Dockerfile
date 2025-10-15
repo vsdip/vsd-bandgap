@@ -40,8 +40,15 @@ RUN git clone https://github.com/RTimothyEdwards/netgen.git && \
 # Build and install NGSPICE
 # -----------------------------
 WORKDIR /tmp/build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    autoconf automake libtool pkg-config bison flex \
+    libxmu-dev libfftw3-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp/build
 RUN git clone https://git.code.sf.net/p/ngspice/ngspice && \
-    cd ngspice && mkdir release && cd release && \
+    cd ngspice && mkdir -p release && cd release && \
+    ../autogen.sh && \
     ../configure --with-x --enable-cider --enable-openmp && \
     make -j"$(nproc)" && make install && \
     cd / && rm -rf /tmp/build
