@@ -1,8 +1,6 @@
 {
-  "name": "VLSI Codespace (Sky130 + GUI)",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "name": "VLSI Codespace (Magic/Netgen/Ngspice + Sky130 GUI)",
+  "build": { "dockerfile": "Dockerfile" },
   "forwardPorts": [6080],
   "portsAttributes": {
     "6080": { "label": "noVNC Desktop", "onAutoForward": "openBrowser" }
@@ -13,13 +11,5 @@
     "PDK_ROOT": "/opt/pdk",
     "VOLARE_HOME": "/opt/volare",
     "DISPLAY": ":1"
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-vscode.makefile-tools",
-        "ms-vscode.cpptools"
-      ]
-    }
   }
 }
