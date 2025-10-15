@@ -1,9 +1,14 @@
 {
-  "name": "VLSI Codespace (Magic/Netgen/Ngspice + Sky130 GUI)",
-  "build": { "dockerfile": "Dockerfile" },
+  "name": "VLSI Codespace (Magic, Netgen, Ngspice + Sky130 GUI)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "forwardPorts": [6080],
   "portsAttributes": {
-    "6080": { "label": "noVNC Desktop", "onAutoForward": "openBrowser" }
+    "6080": {
+      "label": "noVNC Desktop",
+      "onAutoForward": "openBrowser"
+    }
   },
   "overrideCommand": false,
   "remoteUser": "root",
