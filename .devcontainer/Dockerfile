@@ -22,10 +22,8 @@ RUN mkdir -p "$PDK_ROOT"
 
 # Install volare and enable a known-good sky130 version (pin for reproducibility)
 RUN pip install --no-cache-dir volare
-# (This hash is exactly what your logs showed as enabled and known-good)
 RUN volare enable --pdk sky130 c6d73a35f524070e85faff4a6a9eef49553ebc2b
 
-# Create conventional /opt/pdk/sky130A symlink to the enabled tree
 # Create conventional /opt/pdk/sky130A symlink to the enabled tree
 RUN set -eux; \
     TARGET="$(volare ls --pdk sky130 --path)"; \
