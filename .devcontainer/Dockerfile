@@ -26,10 +26,9 @@ RUN pip install --no-cache-dir volare
 RUN volare enable --pdk sky130 c6d73a35f524070e85faff4a6a9eef49553ebc2b
 
 # Create conventional /opt/pdk/sky130A symlink to the enabled tree
+# Create conventional /opt/pdk/sky130A symlink to the enabled tree
 RUN set -eux; \
-    VOLARE_ROOT="$(volare ls --pdk sky130 | head -n1)"; \
-    echo "Volare PDK root: ${VOLARE_ROOT}"; \
-    TARGET="$(find "${VOLARE_ROOT}" -type d -path '*/pdk/sky130A' | head -n1)"; \
+    TARGET="$(volare ls --pdk sky130 --path)"; \
     echo "Resolved sky130A path: ${TARGET}"; \
     test -d "${TARGET}"; \
     ln -s "${TARGET}" "${PDK_ROOT}/sky130A"
