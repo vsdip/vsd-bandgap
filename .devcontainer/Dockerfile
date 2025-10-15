@@ -21,15 +21,15 @@ ENV PDK_ROOT=/opt/pdk
 RUN mkdir -p "$PDK_ROOT"
 
 # Install volare and enable a known-good sky130 version (pin for reproducibility)
-RUN pip install --no-cache-dir volare
-RUN volare enable --pdk sky130 latest
+# RUN pip install --no-cache-dir volare
+# RUN volare enable --pdk sky130 latest
 
 # Create conventional /opt/pdk/sky130A symlink to the enabled tree
-RUN set -eux; \
-    TARGET="${PDK_ROOT}/volare/sky130/current"; \
-    echo "Target path: ${TARGET}"; \
-    test -d "${TARGET}"; \
-    ln -s "${TARGET}" "${PDK_ROOT}/sky130A"
+# RUN set -eux; \
+ #   TARGET="${PDK_ROOT}/volare/sky130/current"; \
+ #   echo "Target path: ${TARGET}"; \
+ #   test -d "${TARGET}"; \
+ #   ln -s "${TARGET}" "${PDK_ROOT}/sky130A"
     
 
 # Helpful env for the tools
