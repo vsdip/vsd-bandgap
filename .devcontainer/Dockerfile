@@ -32,11 +32,12 @@ RUN git clone https://github.com/RTimothyEdwards/magic && \
 # -----------------------------
 # Install NGSPICE
 # -----------------------------
+WORKDIR /tmp/build
 RUN git clone git://git.code.sf.net/p/ngspice/ngspice && \
-cd ngspice && ./autogen.sh && mkdir release && cd release
-../configure --with-x --enable-xspice --disable-debug --enable-cider --with-readline=yes --enable-openmp && \
-make -j$(nproc) && make install && \
- && rm -rf /var/lib/apt/lists/*
+    cd ngspice && ./autogen.sh && mkdir release && cd release && \
+    ../configure --with-x --enable-xspice --disable-debug --enable-cider --with-readline=yes --enable-openmp && \
+    make -j$(nproc) && make install && \
+    cd / && rm -rf /tmp/build
 
 # -----------------------------
 # Build and install NETGEN
