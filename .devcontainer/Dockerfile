@@ -11,8 +11,8 @@ ARG SKY130_VER=c6d73a35f524070e85faff4a6a9eef49553ebc2b
 # -----------------------------
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git build-essential autoconf automake libtool m4 \
-    tcl tcl-dev tk tk-dev libcairo2-dev \
-    libx11-dev libxext-dev libxrender-dev libxpm-dev libxaw7-dev \
+    tcl tcl-dev tk tk-dev libcairo2-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev \
+    libx11-dev libxext-dev libxrender-dev libxpm-dev libxaw7-dev libcairo2-dev libfontconfig1-dev \
     libreadline-dev libncurses-dev flex bison gawk tcsh \
     python3 python3-pip pkg-config curl ca-certificates \
     xfce4 xfce4-terminal x11vnc xvfb novnc websockify supervisor dbus-x11 \
@@ -22,9 +22,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Build and install MAGIC
 # -----------------------------
 WORKDIR /tmp/build
-RUN wget http://opencircuitdesign.com/magic/archive/magic-8.3.32.tgz && \
-    tar xvfz magic-8.3.32.tgz && \
-    cd magic-8.3.32 && \
+RUN git clone https://github.com/RTimothyEdwards/magic && \
+    cd magic && \
     ./configure && \
     make && \
     make install && \
@@ -33,8 +32,10 @@ RUN wget http://opencircuitdesign.com/magic/archive/magic-8.3.32.tgz && \
 # -----------------------------
 # Install NGSPICE
 # -----------------------------
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ngspice \
+RUN git clone git://git.code.sf.net/p/ngspice/ngspice && \
+cd ngspice && ./autogen.sh && mkdir release && cd release
+../configure --with-x --enable-xspice --disable-debug --enable-cider --with-readline=yes --enable-openmp && \
+make -j$(nproc) && make install && \
  && rm -rf /var/lib/apt/lists/*
 
 # -----------------------------
