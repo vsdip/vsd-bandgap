@@ -116,18 +116,18 @@ $  [sudo] make install
 ### 2.1 BGR Principle
 The operation principle of BGR circuits is to sum a voltage with negative temprature coefficient with another one exhibiting opposite temperature dependancies. Generally semiconductor diode behave as CTAT i.e. Complement to absolute temp. which means with increase in temp. the voltage across the diode will decrease. So we need to find a PTAT circuit which can cancel out the CTAT nature i.e. with rise in temp. the voltage across that device will increase and thus we can get a constant voltage reference with respect to temp.
 <p align="center">
-  <img src="/Images/BGR_Principle.png">
+  <img src="Images/BGR_Principle.png">
 </p>
 
 #### 2.1.1 CTAT Voltage Generation
 Usually semiconductor diodes shows CTAT behaviour. If we consider constant current is flowing through a forwrard biased diode, then with increase in temp. we can observe that the voltage across the diode is decreaseing. Generally, it is found that the slope of the V~Temp is -2mV/deg Centigarde.
 <p align="center">
-  <img src="/Images/CTAT.png">
+  <img src="Images/CTAT.png">
 </p>
 
 #### 2.1.2 PTAT Voltage Generation
 <p align="center">
-  <img src="/Images/Equation.png">
+  <img src="Images/Equation.png">
 </p>
 
 From Diode current equation we can find that it has two parts, i.e. 
@@ -139,12 +139,12 @@ So to get a PTAT Voltage generation circuit we have to find some way such that w
 
 To get Vt separated from Is we can approach in the following way
 <p align="center">
-  <img src="/Images/PTATCKT.png">
+  <img src="Images/PTATCKT.png">
 </p>
 
 In the above circuit same amount of current I is flowing in both the branches. So the node voltage A and B are going to be same V. Now in the B branch if we substract V1 from V, we get Vt independent of Is.
 <p align="center">
-  <img src="/Images/PTATEQN.png">
+  <img src="Images/PTATEQN.png">
 </p>
 Now
 
@@ -155,7 +155,7 @@ V-V1= Voltage across R1 (PTAT in nature)
 ```
 From above we can see that the voltage V-V1 is PTAT in nature, but it's slope is very less as compared to the CTAT, so we have to increase the slope. In order to increase the slope we can use multiple BJTs as diode, so that current per individual diode will be less and it the slope of V-V1 will increase.
 <p align="center">
-  <img src="/Images/PTAT.png">
+  <img src="Images/PTAT.png">
 </p>
 
 ### 2.2 Types of BGR
@@ -185,37 +185,37 @@ The Self-biased current mirror based constitute of the following components.
 #### 2.3.1 CTAT Voltage generation circuit
 The CTAT Voltage generation circuit consist of a BJT connected as a diode, which shows CTAT nature as explained above.
 <p align="center">
-  <img src="/Images/CTAT1.png">
+  <img src="Images/CTAT1.png">
 </p>
 
 #### 2.3.2 PTAT Voltage generation circuit
 The PTAT Voltgae generation circuit consist of **N** BJTs connected with a series resistance. The operation principle is explained above.
 <p align="center">
-  <img src="/Images/PTAT1.png">
+  <img src="Images/PTAT1.png">
 </p>
 
 #### 2.3.3 Self-Biased Current Mirror Circuit
 The Self-biased current mirror is a type of current mirror which requires no external biasing. This current mirrors biases it self to the desired current value without any external current source reference. 
 <p align="center">
-  <img src="/Images/currentmirror.png">
+  <img src="Images/currentmirror.png">
 </p>
 
 #### 2.3.4 Reference Branch Circuit
 The reference circuit branch performs the addition of CTAT and PTAT volages and gives the final reference voltage. We are using a mirror transitor and a BJT as diode in the reference branch. By virtue of the mirror transistor in the reference branch the same amount of current flows through it as of the current mirror branches. Now from the PTAT circuit branch we are getting PTAT voltage and PTAT current. The same PTAT current is flowing in the reference branch. But the slope of PTAT voltage is much more smaller than that of slope of CTAT voltgae. In order to make increase the voltage slope we have to increase the resistance (current constant, so V increases with increase in R). Now across the high resistance we will get our constant reference voltage which is the result of CTAT Voltage + PTAT Voltage.
 <p align="center">
-  <img src="/Images/refbranch1.png">
+  <img src="Images/refbranch1.png">
 </p>
 
 #### 2.3.5 Start-up circuit
 The start-up circuit is required to move out the self biased current mirror from degenerative bias point (zero current). The start-up circuit forecefully flows a slow amount of current through the self-biased current mirror when the current is 0 in the current mirror branches, as the current mirror is self biased this small current creats a disturbance and the current mirror auto biased to the desired current value.
 <p align="center">
-  <img src="/Images/startup.png">
+  <img src="Images/startup.png">
 </p>
 
 #### 2.3.6 Complete BGR Circuit
 Now by connecting all above components we can get the complete BGR circuit.
 <p align="center">
-  <img src="/Images/fullbgr.png">
+  <img src="Images/fullbgr.png">
 </p>
 Advantages of SBCM BGR:
 
@@ -311,7 +311,7 @@ After thoroughly going through the device data sheet we selected the following d
 
 #### 3.3.1 Final Circuit
 <p align="center">
-  <img src="/Images/finalbgr.png">
+  <img src="Images/finalbgr.png">
 </p>
 
 ### 3.4 Writing Spice netlist and Pre-layout simulation
@@ -353,7 +353,7 @@ $ ngspice ctat_voltage_gen.sp
 
 After simulation we can get a wavefrom like below, and from the wavefrom we can see the CTAT behaviour of the BJT, and can find the slope.
 <p align="center">
-  <img src="/Images/prelayout/ctat@2v.PNG">
+  <img src="Images/prelayout/ctat@2v.PNG">
 </p>
 
 **CTAT Voltage generation with Multiple BJT** [netlist](/prelayout/ctat_voltage_gen_mul_bjt.sp)
