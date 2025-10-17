@@ -22,27 +22,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Build and install MAGIC
 # -----------------------------
 WORKDIR /tmp/build
-RUN git clone https://github.com/RTimothyEdwards/magic.git && \
-    cd magic && \
-    ./configure --with-tcl=/usr --with-tk=/usr --enable-cairo --without-opengl && \
-    make -j"$(nproc)" && make install && \
+RUN wget http://opencircuitdesign.com/magic/archive/magic-8.3.32.tgz && \
+    tar xvfz magic-8.3.32.tgz && \
+    cd magic-8.3.32 && \
+    ./configure && \
+    make && \
+    make install && \
     cd / && rm -rf /tmp/build
+
+# -----------------------------
+# Install NGSPICE
+# -----------------------------
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ngspice \
+ && rm -rf /var/lib/apt/lists/*
 
 # -----------------------------
 # Build and install NETGEN
 # -----------------------------
 WORKDIR /tmp/build
-RUN git clone https://github.com/RTimothyEdwards/netgen.git && \
-    cd netgen && ./configure && make -j"$(nproc)" && make install && \
+RUN git clone git://opencircuitdesign.com/netgen && \
+    cd netgen && \
+    ./configure && \
+    make && \
+    make install && \
     cd / && rm -rf /tmp/build
-
-# -----------------------------
-# Build and install NGSPICE
-# -----------------------------
-# Install ngspice from apt
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ngspice \
- && rm -rf /var/lib/apt/lists/*
 
 
 # -----------------------------
