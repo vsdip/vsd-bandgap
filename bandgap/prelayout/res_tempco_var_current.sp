@@ -1,7 +1,6 @@
 **** RES tempco circuit *****
 
 .lib "/opt/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice tt"
-.include "/opt/pdk/sky130A/libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pnp_05v5_W0p68L0p68.model.spice"
 
 .global vdd gnd
 .temp 27
