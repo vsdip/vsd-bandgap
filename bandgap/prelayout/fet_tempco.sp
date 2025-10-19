@@ -1,7 +1,6 @@
 **** mosfet tempco characterization *****
 
-.lib "/home/santunu/cad/eda-technology/sky130/models/spice/models/sky130.lib.spice tt"
-.include "/home/santunu/cad/eda-technology/sky130/models/spice/models/sky130_fd_pr__model__pnp.model.spice"
+.lib "/opt/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice tt"
 
 .global vdd gnd
 .temp 27
