@@ -1,7 +1,6 @@
 **** bandgap reference circuit using self-biase current mirror at ss corner****
 
-.lib "/home/santunu/cad/eda-technology/sky130/models/spice/models/sky130.lib.spice ss"
-.include "/home/santunu/cad/eda-technology/sky130/models/spice/models/sky130_fd_pr__model__pnp.model.spice"
+.lib "/opt/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice ss"
 
 .global vdd gnd
 .temp 27
@@ -23,9 +22,9 @@ xmn3    net6    net6    net8    gnd     sky130_fd_pr__nfet_01v8_lvt     l=7     
 xmn4    net8    net8    gnd     gnd     sky130_fd_pr__nfet_01v8_lvt     l=7     w=1     m=1
 
 *** bjt definition
-xqp1	gnd	gnd	qp1	vdd	sky130_fd_pr__pnp_05v5_W3p40L3p40	m=1
-xqp2    gnd     gnd     qp2     vdd     sky130_fd_pr__pnp_05v5_W3p40L3p40       m=8
-xqp3    gnd     gnd     qp3     vdd     sky130_fd_pr__pnp_05v5_W3p40L3p40       m=1
+xqp1	gnd	gnd	qp1		sky130_fd_pr__pnp_05v5_W3p40L3p40	m=1
+xqp2    gnd     gnd     qp2          sky130_fd_pr__pnp_05v5_W3p40L3p40       m=8
+xqp3    gnd     gnd     qp3          sky130_fd_pr__pnp_05v5_W3p40L3p40       m=1
 
 *** high-poly resistance definition
 xra1	ra1	na1	vdd	sky130_fd_pr__res_high_po_1p41     w=1.41  l=7.8
