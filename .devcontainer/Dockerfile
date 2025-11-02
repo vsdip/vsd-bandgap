@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libx11-dev libxext-dev libxrender-dev libxpm-dev libxaw7-dev libcairo2-dev libfontconfig1-dev \
     libreadline-dev libncurses-dev flex bison gawk tcsh \
     python3 python3-pip pkg-config curl ca-certificates \
-    xfce4 xfce4-terminal x11vnc xvfb novnc websockify supervisor dbus-x11 \
+    xfce4 xfce4-terminal x11vnc xvfb novnc websockify supervisor dbus-x11 gedit vim \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # -----------------------------
